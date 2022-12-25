@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: app
+    spec:
+      containers:
+      - image: bitnami/bitnami-shell
+        name: app
+        command:
+        - /bin/bash
+        - -c
+        args:
+        - sleep 360
+        env:
+          - name: APP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: app-x-secret
+                key: key.pem
+        resources: {}
+status: {}

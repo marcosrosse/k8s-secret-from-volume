@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: null
+  name: secret-creator
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      volumes:
+        - name: cert-volume
+          persistentVolumeClaim:
+            claimName: my-existent-pvc
+      serviceAccountName: secret-creator
+      serviceAccount: secret-creator
+      containers:
+      - image: bitnami/kubectl
+        name: secret-creator
+        command:
+          - /bin/bash
+          - -c
+        args:
+          - kubectl create secret generic app-x-secret --from-file=/etc/sec/key.pem --dry-run=client -o yaml|kubectl apply -f-
+        resources: {}
+        volumeMounts:
+         - name: cert-volume
+           mountPath: /etc/sec/key.pem
+           subPath: key.pem
+      restartPolicy: Never
+status: {}

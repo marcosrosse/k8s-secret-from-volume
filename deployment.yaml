@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: app
   name: app
@@ -13,7 +12,6 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: app
     spec:
@@ -31,5 +29,3 @@ spec:
               secretKeyRef:
                 name: app-x-secret
                 key: key.pem
-        resources: {}
-status: {}

@@ -1,12 +1,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  creationTimestamp: null
   name: secret-creator
 spec:
   template:
     metadata:
-      creationTimestamp: null
     spec:
       volumes:
         - name: cert-volume
@@ -28,4 +26,3 @@ spec:
            mountPath: /etc/sec/key.pem
            subPath: key.pem
       restartPolicy: Never
-status: {}

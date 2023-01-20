@@ -9,23 +9,29 @@ spec:
   selector:
     matchLabels:
       app: app
-  strategy: {}
   template:
     metadata:
       labels:
         app: app
     spec:
       containers:
-      - image: bitnami/bitnami-shell
-        name: app
-        command:
-        - /bin/bash
-        - -c
-        args:
-        - sleep 360
-        env:
-          - name: APP_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: app-x-secret
-                key: key.pem
+        - image: bitnami/bitnami-shell
+          name: app
+          command:
+          - /bin/bash
+          - -c
+          args:
+          - sleep 360
+          env:
+            - name: APP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-x-secret
+                  key: key.pem
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 10m
+            limits:
+              memory: 512Mi
+              cpu: 20m

@@ -20,7 +20,13 @@ spec:
           - -c
         args:
           - kubectl create secret generic app-x-secret --from-file=/etc/sec/key.pem --dry-run=client -o yaml|kubectl apply -f-
-        resources: {}
+        resources:
+            requests:
+              memory: 64Mi
+              cpu: 10m
+            limits:
+              memory: 512Mi
+              cpu: 20m
         volumeMounts:
          - name: cert-volume
            mountPath: /etc/sec/key.pem
